@@ -80,6 +80,10 @@ x = input.nextInt();
 
 E' la proprietà per cui i dati che rappresentano lo stato interni di un oggetto possono essere accessibili solo tramite i moetodi dell'oggetto stesso.
 
+**Proprietà di incapsulameno:** possibilità di controllare l'accesso allo stato degli oggetti tramite appositi metodi nei linguaggi orientati agli oggetti.
+
+L'incapsulamento consente di **nascondere la rappresentazione dello stato interno degli oggetti agli utilizzatori** (non ai programmatori).
+
 # Variabili statiche
 
 E' una variabile condivisa da tutte le istanze di classe di una certa classe.
@@ -205,11 +209,6 @@ public static int minimo(int a, int b) {
 - Tipo restituito dal metodo
 - Nome del metodo
 - Parametri formali (input chiamata a metodo)
-
-# Incapsulamento
-: **Proprietà di incapsulameno:** possibilità di controllare l'accesso allo stato degli oggetti tramite appositi metodi nei linguaggi orientati agli oggetti.
-
-L'incapsulamento consente di **nascondere la rappresentazione dello stato interno degli oggetti agli utilizzatori** (non ai programmatori).
 
 # Passaggio di parametri
 
@@ -640,27 +639,100 @@ Tutti i metodi come *toString()* e *equals()* che discendono dalla classe *Objec
 - **Stack:** Descrive pile di valori
 - **Alberi**
 
+# Persistenza dei dati
 
+I dati devono sopravvivere alla terminazione del programma ed essere disponibili in una esecuzione successiva.
 
+In Java l’input e l’output sono gestiti come stream.
+Uno **stream di input** prevede una sorgente di dati (tastiera o file), mentre uno **stream di output** precede una destinazione per i dati (schermo o file).
 
+Si distinguono due classi di librerie per la gestione dei flussi:
 
+1. gestione di stream di caratteri: utili per leggere e scrivere su testo
+2. gestione di stream di bytes: utili per leggere e scrivere su file binari (immagini, video, dati, ...)
 
+**1)** utilizza le classi **FileReader** e ** FileWriter**, mentre **2)** utilizza **FileInputStream** e **FileOutputStream**; entrambe fanno parte della *java.io* e devono essere importate nei programmi.
 
+La classe *FileReader* consente di leggere un file un carattere per volta.
+```java
+// chiamata al costruttore; apre il file altrimenti lancia un eccezione.
+FileReader reader = new FileReader ( " prova.txt " );
+// restituisce -1 se il file é terminato, altrimenti casta a char.
+int next = reader.read ();
+// chiude lo stream.
+reader.close ();
+```
+Java utilizza le eccezioni di tipo *IOException*; possono essere lanciate da tutti i metodi delle classi di gestione degli stream e sono controllate (devono essere gestite da chi chiama i metodi).
 
+La scrittura su file tramite uno stream di output é analoga alla lettura; si utilizza la classe *FileWriter* e il metodo *write()*.
 
+# Input/Output bufferizzato
 
+Per evitare di eccedere in richieste al S.O. di lettura/scrittura, si utilizza un buffer (memoria tampone) che ne velocizza le operazioni.
 
+Vengono utilizzate le classi **BufferedReaders** e **BufferedWriter** per i *stream di caratteri* e **BufferedInputStream** e **BufferedOutputStream** per i *stream di bytes*.
 
+```java
+BufferedReader reader = new BufferedReader ( new FileReader ( " prova.txt " ));
+```
+Per manipolare e dare forma ai dati letti/scritti, si utilizzano classi e metodi simili a quelli utilizzati da *Scanner* e *PrintWriter*
+Come per *Scanner*, si utilizzano i metodi **nextInt()**, **nextLine()**, ecc... per leggere da file; bisogna essere sicuri al tipo di valore che si legge o essere pronti a gestire eccezioni.
+Come per *PrintWriter* si utilizzano i metodi **println()** e **print()** per scrivere nel file.
 
+# Serializzazione degli oggetti
 
+In caso di un programma complesso che usat molte strutture dati, salvare lo stato del programma in un file diventa complicato; in questo caso é utile la **serializzazione degli oggetti**.
+Esso é una funzionalitá di Java che consente di rappresentare oggetti arbitrariamente complessi come sequenze di byte ben definite; tali sequenze di byte potranno essere salvate su file tramite uno stream.
 
+Per leggere/scrivere un oggetto in un file bisogna usare le classi **ObjectInputStream** e **ObjectOutputStream**.
 
+Nel caso di ObjectInputStream (l’output é analogo) si procede come segue:
 
+1. passare al costruttore di *ObjectInputStream* uno stream di bytes di input (meglio se bufferizzato, *BufferedInputStream*)
+2. usare il metodo *readObject()* per leggere dal file facendo attezione; se il file non contiene un oggetto viene lanciata l’eccezione *ClassNotFoundException*
+3. chiudere lo stream
 
+Affinché un oggeto possa essere serializzato e salvato su file, la sua classe deve implementare l’interfaccia **Serializable**.
+Tale interfaccia non prevede metodi e serve solo per far dichiarare al programmatore che autorizza il salvataggio dei suoi oggetti; é un meccanismo di sicurazza (la serializzazione espone l’oggetto).
 
+Alle classi che implementano Serializable viene richiesto (anche se non é obbligatorio) di includere una costante statica *serialVersionUID* (di tipo long) che servirebbe per distinguere tra diverse versioni della stessa classe (es.modifiche successive).
 
+# Inner class (Classi interne)
 
+É possibile definire una classe all’interno di un altra.
 
+# Classe anonime
 
+Sono dichiarazione e instaziazione di una classe allo stesso tempo.
 
+```java
+public void metodo () {
+    ActionListener listener = new ActionListener (){
+        public void actionPerfor med ( ActionEvent evt ) {
+            JOptionPane . s how Mes sag eDi alog ( null , " Buongiorno ! " );
+        }
+    };
 
+    JButton button = new JButton ( " Saluta " );
+    button . add Act ion Lis tene r ( listener );
+}
+```
+
+# Classi generiche
+
+Il tipo é generico (T) e sará specificato al momento della chiamata del costruttore
+
+```java
+public class Coppia <T > {
+
+    public T elemento1 ;
+    public T elemento2 ;
+
+    public Coppia ( T elemento1 , T elemento2 ) {
+        this . elemento1 = elemento1 ;
+        this . elemento2 = elemento2 ;
+    }
+}
+// una coppia di interi
+Coppia < Integer > = new Coppia < Integer >(10 ,20);
+```

@@ -1,0 +1,375 @@
+---
+title: "Java Notes"
+authot: ""
+date: ""
+output: pdf_document
+header-includes: \usepackage{graphicx}
+                 \usepackage{wrapfig}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# array
+
+**declaration:**
+```java
+int [] <array_name> = new int[dim]
+```
+
+Gli array sono in realtà oggetti che hanno un riferimento e un valore.
+
+# for-each
+
+**declaration:**
+```java
+for ( <type> <variable> : <in> ) { }
+```
+Gli elementi sono presi in ordine dall'array e <type> deve essere compatibile con gli elementi presenti nell'array.
+Consente di utilizzare gl elementi in sola lettura.
+
+E' un for semplificato, simile al for in pyton (o bash) con le parentesi in più e ':' al posto di 'in'.
+
+```java
+for ( String s : nomi ) {
+    System.out.println(s);  //stampa tutti gli elementi in nomi
+}
+```
+Letteralmente: per ogni variabile *i* di tipo *String* appartenente nell'array *nomi*, esegui ciò tra parentesi graffe.
+
+Equivale a:
+
+```java
+for ( int i=0; i<nomi.length; i++) {
+    String s = nomi[i];
+    System.out.println(s);
+}
+```
+
+# Scanner class
+
+E' un oggetto che risiede nella libreria *java.util.Scanner* che gestisce l'input dei dati.
+
+```java
+import java.util.Scanner;
+...
+Scanner input = new Scanner(System.in);
+int x = new int;
+x = input.nextInt();
+```
+
+# Incapsulamento
+
+E' la proprietà per cui i dati che rappresentano lo stato interni di un oggetto possono essere accessibili solo tramite i moetodi dell'oggetto stesso.
+
+# Variabili statiche
+
+E' una variabile condivisa da tutte le istanze di classe di una certa classe.
+Sono variabili che hanno valore comune a tutte le istanze.
+Assume valore dell'ultima classe utilizzata.
+
+# Metodi statici
+
+Un metodo statico può accedere solo a variabili statiche (non può accedere a variabili di istanza, ovvero non statiche).
+
+# Gestione della memoria JVM
+
+La JVM è divisa in tre parti:
+
+- Ambiente delle classi: le *classi* del programma.
+
+    Vengono memorizzati il codice dei metodi e le variabili statiche di tutte le classi; sono le parti condivise dai vari oggerri della classe; ~~le variabili statiche sono utilizzabili anche in assenza di oggetti~~.
+
+  - Stack: *record di attivazione* dei metodi (chiamate a funzione in C) e tutte le *variabili locali*.
+
+    Vengono memorizzate le variabili locali dei metodi in esecuzione; per le variabili di tipi primitivi viene memorizzato il valore; per le variabili di tipo classe viene memorizzato un riferimento (indirizzo di memoria);
+
+- Heap: *oggetti creati* nel programma, man mano che vengono caricati, e *variabili di istanza*.
+
+    Per ogni oggetto creato vengono memoriazzate le variabili d'istanza (variabili non statiche); ogni oggetto nell'heap contiene anche il nome della classe di appartenenza.
+
+# Riferimenti
+
+L'operazione di confonto (==) restituisce true solo se gli oggetti che si confrontano sono lo stesso oggetto, ovvero se hanno lo stesso riferimento.
+
+```java
+Rettangolo r1 = new Rettangolo (10 ,12);
+Rettangolo r2 = r1;
+Rettangolo r3 = new Rettangolo (10 ,12);
+
+System.out.println(r1==r2); // stampa true
+System.out.println(r1==r3); // stampa false
+```
+
+# Metodo Equals
+
+Per questo si utilizza il metodo *equals*; esso permette di confrontare gli oggetti e non i riferimenti come nel caso di confronto (==).
+
+Questo metodo è implementato in modo tale da confrontare una per una tutte le variabili interne di una coppia di oggetti.
+
+```java
+s1.equals(s2)
+```
+
+# Garbage Collector
+
+Una conseguenza grave del fatto che tutte le operazioni su variabili di tipo classe lavorino su riferimenti è che si possono ottenere **oggetti orfani**, ovvero **privi di riferimento**.
+Una volta che si è perso il riferimento ad un oggetto, esso non è più utilizzabile e diventa quindi garbage.
+
+Java prevede quindi un meccanismo di rimozione degli oggetti privi di riferimento, ovvero il Garbage Collector.
+Questo meccanismo viene chiamato periodiamente dalla JVM; essa interrompe momentaneamente l'esecuzione del programma e pulisce la memoria delgi oggetti privi di riverimento.
+
+# Dichiarazione di una classe
+
+```java
+public class <nome -classe > {
+    <variabili di istanza >
+    <variabili statiche >
+    <costruttori >
+    <metodi di istanza >
+    <metodi statici >
+```
+Variabili e metodi sono chiamati anche membri della classe; l'ordine di dichiarazione all'interno del corpo non è importante.
+
+: **Membri di istanza:** codificano lo stato e le funzionalià dei singoli oggetti
+
+: **Membri statici:** codificano lo stato e le funzionalità della classe( condivide da tutti gli oggetti; significativi anche se non esiste nessun oggetto della classe)
+
+l metodo **main è statico** (viene creato prima di invocare qualunque oggetto).
+
+Una variabile dovrebbe essere d'istanza se assume valodi diversi per oggetti diversi.
+
+Una variabile dovrebbe essere statica se assume gli stessi valori per oggetti diversi.
+
+Se un metodo (static) utilizza una variabile d'istanza il compilatore darà errore.
+
+# Modificatori di visibilià
+
+: **Private:** utilizzabile sono all'interno della stessa classe.
+: **senza modificatore:** utilizzabile sono nel package che contiene la classe.
+: **Protectes:** utilizzabile nel package che contiene la calsse e in tutte le classi che ereditano da essa.
+: **Public:** utilizzabile ovunque.
+
+I membri pubblici di una classe costituiscono l'interfaccia pubblica della classe (insieme delle risorse e delle funzionalità messe a disposizione alle altre classi.
+
+Le variabili private rappresentano lo stato interno della classe; i metodi privati sono metodi ausiliari a disposizione degli altri metodi della classe.
+
+# Metodi
+
+```java
+<modificatori > <tipo > <nome > (<lista_parametri_formali >) {
+....
+}
+```
+Esempio:
+```java
+public static int minimo(int a, int b) {
+    if (a<b) return a;
+    else
+    return b;
+}
+```
+
+- Modificatori di visibilità o appartenenza a classe o istanze (static)
+- Tipo restituito dal metodo
+- Nome del metodo
+- Parametri formali (input chiamata a metodo)
+
+# Incapsulamento
+: **Proprietà di incapsulameno:** possibilità di controllare l'accesso allo stato degli oggetti tramite appositi metodi nei linguaggi orientati agli oggetti.
+
+L'incapsulamento consente di **nascondere la rappresentazione dello stato interno degli oggetti agli utilizzatori** (non ai programmatori).
+
+# Passaggio di parametri
+
+Il passaggio dei parametri ai metodi avviene per valore; i metodi lavorano su copie delle variabili passate come parametri.
+
+Le ~~variabili di tipo classe~~ contengono riferimenti agli oggetti; ciò che viene chiamato al momento della chiamata è il riferimento.
+Il metodo lavora sull'oggetto originale (acceduto tramite una copia del riferimento).
+
+: **Attenzione:** Se un metodo public fa riferimeno ad una variabile privata, allora chiamando il metodo, viene restituito il riferimento all'oggetto è quindi possibile ottenere anche la variabile private.
+
+# Overloading
+
+Consente di chiamare più metodi della stessa classe con lo stesso nome, purchè ogni metodo abbia una diversa firma (signature).
+La firma corrisponde alla sequenza di parametri formali (input chiamata a funzione).
+
+**Attenzione:** la firma non comprene nè il tipo del metodo, nè i nomi dei parametri formali.
+
+L'overloadin permette di utilizzare lo **stesso nome per metodi diversi che realizzano la stessa funzionalità su dati di tipo diverso.**
+
+| Metodo | Firma |
+| ----|------|
+| int getVal() | getVal() |
+| int minimo(int x, int y) | minimo(int,int) |
+|int minimo(int a, int b) | minimo(int,int) |
+| double minimo(double x, double y) | minimo(double,double) |
+| int minimo(int x, int y, int z) | minimo(int,int,int) |
+
+# Vargargs
+
+Modo di definire metodi con numero variabile di parametri.
+
+L'ultimo (e solo) parametro formale varargs ha la seguente sintassi:
+```java
+<type>... par
+```
+
+All'interno del corpo del metodo il parametro par avrà tipo \<type\>[]...
+
+**la firma di int \<metodo\>(\<type\>... par) è \<metodo\>(\<type\>[]).**
+
+# Costruttori e inizializzazione di variabili
+
+Il costruttore è un metodo speciale che viene eseguito al momento di creazione dell'oggetto tramite primitiva new.
+
+# Inizializzazione di variabili
+
+Variabili dichiarate localmente nei metodi sono variabili **locali** e **parametri formali**.
+Variabili dichiarate come membri di una classe sono variabili **statiche** e **variabili d'istanza**.
+
+Le variabili locali vengono allocate nei record di attivazione relativo alla chiamata del metodo (nello stack); devono essere inizializzate esplicitamente (altrimenti errore dal compilatore).
+
+Esempio:
+```java
+int num;
+whule (num >=0) {
+    num = input.nextInt();
+}
+```
+Errore segnalato dal compilatore:
+```java
+variable num might not have been initialized
+```
+Le variabili statiche e di istanza vengono allocate nella memoria che descrive l'oggetto (heap); vengono sempre inizializzate (anche se non viene fatto espilicitamente) e vengono assegnati dei valori di default in base al tipo.
+
+| type | default value |
+| ---- | ------------- |
+| variabili numeriche | 0 |
+| boolean | false |
+| variabili di tipo classe | null |
+
+Ci sono tre modi per inizializzare una variabile d'istanza o statica:
+
+- assegnamento esplicito all'interno del costruttore
+- inizializzazione esplicata nella dichiarazione
+- inizializzazione (implicita) con valori di default
+
+```java
+public class <name> {
+
+    public int x;           // inizializzazione nel costruttore
+    public int y = 3;       // inizializzazione nella dichiarazione
+    public int z;           // inizializzazione con valore di default
+
+    public <name> (int val) {
+        x = val;
+    }
+}
+----------------------------
+name p = new name(5.0);
+System.out.println(p.x); // stampa 5.0;
+System.out.println(p.y); // stampa 3.0;
+System.out.println(p.z); // stampa 0.0;
+```
+
+# Costruttori
+
+I costruttori si dichiarano all'interno di una classe essenzialmene come metodi, ma:
+
+- il nome deve coincidere con quello della classe
+- il tipo del costruttore non deve essere specificato
+- il modificatore static non può essere utilizzato
+
+E' possibile applicare l'overloading (come nei metodi), ma con firma diversa.
+
+Ogni classe ha u costruttore di default che inizializza le variabili d'istanza con il corrispondente valore di default; questo costruttore è disponibile solo se non è definito nessun costruttore.
+Se viene definito almeno un costruttore allora il costruttore di default non è più utilizzabile.
+A questo punto, se si vuole un costruttore senza parametri bisogna implementarlo.
+
+# This
+
+in ogni corpo di un metodo d'istanza o costruttore è sempre disponibili la variabile this.
+Essa è un riferimento all'oggetto su cui si invoca il metodo o costruttore ed è anche detto parametro implicito del metodo.
+
+Consenti di usare come nome di parametro formale lo stesso nome di una variabile d'istanza.
+```java
+public class Punto {
+    public double x, y;
+    public Punto(double x, double y) {
+        // assegna i parametri alle variabili d’istanza
+        this.x = x;
+        this.y = y;
+    }
+}
+```
+
+E' possibile anche restutuire un riferimento alla classe corrente:
+```java
+return this
+```
+
+Può essere usato da un costruttore per chiamarne un'altro; **attenzione** è consentito solo come prima istruzione del costruttore.
+
+**Senza this()**
+```java
+public class Punto {
+    public double x, y;
+
+    // prende un solo valore e lo assegna sia a x che a y
+    public Punto(double z) {
+        this.x = z;
+        this.y = z;
+    }
+
+    public Punto(double x, double y) {
+        this.x = x;
+        this.y = y;
+    }
+}
+```
+**Con this()**
+```java
+public class Punto {
+    public double x, y;
+
+    // prende un solo valore e lo assegna sia a x che a y
+    public Punto(double z) {
+        this(z,z); // chiama l’altro costruttore
+    }
+
+    public Punto(double x, double y) {
+        this.x = x;
+        this.y = y;
+    }
+}
+```
+
+# Packages
+
+Sono un meccanismo per raggruppare le classi.
+La libreria standard di Java (Java API) è organizzata in packages.
+Un package raggruppa classi logicamente correlate:
+
+- java.lang riunisce classi fondamentali del linguaggio (String, Math, ...)
+- java.util riunisce classi di frequente utilizzo (Scanner, Random, Timer, ...)
+- java.awt e java.swing riuniscono classi per costruire interfacce grafiche
+
+I packages sono utili per fare ordine e dividere le classi che fanno parte di una stessa categoria.
+
+I packages necessari devono essere listati all'inizio del file e i vari file java devono essere salvati in diverse directori che corrispondono ai vari packages.
+
+\begin{wrapfigure}{R}{0.25\textwidth}
+  \begin{center}
+    \includegraphics[width=0.2\textwidth]{img/PackagesStruct.png}
+  \end{center}
+  \caption{Java packages structure example.}
+\end{wrapfigure}
+
+Se non si specifica nessun package, la classe farà parte del package default corrispondente alla directory principale.
+
+I packages possono essere raggruppati formando una struttura gerarchica.
+Si utilizzano i punti per navigare nella struttura del file system come se fosse '/' in bash.
+
+I Packages sono sottoposti ai modificatori di visibilità.

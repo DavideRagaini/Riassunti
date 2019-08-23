@@ -11,9 +11,27 @@ header-includes: \usepackage{graphicx}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# array
+# toString()
 
-**declaration:**
+Restituisce una rappresentazione testuale (stringa) che descrive l’oggetto; utile per stampare.
+
+Dentro a *Object*, il metodo *toString()* é definito in modo da restituire una stringa della forma:
+
+> classe@hashcode
+
+```java
+Persona p = new Persona ( " Mario Bianchi " ," Via Firenze 13 " );
+String s = p . toString ();
+System . out . println ( s );               // stampa Persona@ 7519ca2c
+```
+Puó essere ridefinito nelle proprie classi (overriding).
+
+```java
+public String toString()
+```
+
+# Array
+
 ```java
 int [] <array_name> = new int[dim]
 ```
@@ -22,7 +40,6 @@ Gli array sono in realtà oggetti che hanno un riferimento e un valore.
 
 # for-each
 
-**declaration:**
 ```java
 for ( <type> <variable> : <in> ) { }
 ```
@@ -81,7 +98,7 @@ La JVM è divisa in tre parti:
 
     Vengono memorizzati il codice dei metodi e le variabili statiche di tutte le classi; sono le parti condivise dai vari oggerri della classe; ~~le variabili statiche sono utilizzabili anche in assenza di oggetti~~.
 
-  - Stack: *record di attivazione* dei metodi (chiamate a funzione in C) e tutte le *variabili locali*.
+- Stack: *record di attivazione* dei metodi (chiamate a funzione in C) e tutte le *variabili locali*.
 
     Vengono memorizzate le variabili locali dei metodi in esecuzione; per le variabili di tipi primitivi viene memorizzato il valore; per le variabili di tipo classe viene memorizzato un riferimento (indirizzo di memoria);
 
@@ -111,6 +128,16 @@ Questo metodo è implementato in modo tale da confrontare una per una tutte le v
 ```java
 s1.equals(s2)
 ```
+
+Se si vuole consentire di confrontare oggetti della propria classe é bene ridefinire (overriding) il metodo *equals()*.
+
+**Attenzione alla firma!**
+
+```java
+public boolean equals ( Object o ) { .... }
+```
+
+**Attenzione: bisongna definiere usando il parametro di tipo Object.**
 
 # Garbage Collector
 
@@ -146,10 +173,13 @@ Se un metodo (static) utilizza una variabile d'istanza il compilatore darà erro
 
 # Modificatori di visibilià
 
-: **Private:** utilizzabile sono all'interno della stessa classe.
-: **senza modificatore:** utilizzabile sono nel package che contiene la classe.
-: **Protectes:** utilizzabile nel package che contiene la calsse e in tutte le classi che ereditano da essa.
-: **Public:** utilizzabile ovunque.
+**Private:** utilizzabile sono all'interno della stessa classe.
+
+**Senza modificatore:** utilizzabile sono nel package che contiene la classe.
+
+**Protected:** utilizzabile nel package che contiene la calsse e in tutte le classi che ereditano da essa.
+
+**Public:** utilizzabile ovunque.
 
 I membri pubblici di una classe costituiscono l'interfaccia pubblica della classe (insieme delle risorse e delle funzionalità messe a disposizione alle altre classi.
 
@@ -188,7 +218,7 @@ Il passaggio dei parametri ai metodi avviene per valore; i metodi lavorano su co
 Le ~~variabili di tipo classe~~ contengono riferimenti agli oggetti; ciò che viene chiamato al momento della chiamata è il riferimento.
 Il metodo lavora sull'oggetto originale (acceduto tramite una copia del riferimento).
 
-: **Attenzione:** Se un metodo public fa riferimeno ad una variabile privata, allora chiamando il metodo, viene restituito il riferimento all'oggetto è quindi possibile ottenere anche la variabile private.
+**Attenzione:** Se un metodo public fa riferimeno ad una variabile privata, allora chiamando il metodo, viene restituito il riferimento all'oggetto è quindi possibile ottenere anche la variabile private.
 
 # Overloading
 
@@ -348,24 +378,24 @@ public class Punto {
 
 # Packages
 
+\begin{wrapfigure}{O}{0.2\textwidth}
+  \begin{center}
+    \includegraphics[width=0.15\textwidth]{img/PackagesStruct.png}
+  \end{center}
+  \caption{Java packages structure example.}
+\end{wrapfigure}
+
 Sono un meccanismo per raggruppare le classi.
 La libreria standard di Java (Java API) è organizzata in packages.
 Un package raggruppa classi logicamente correlate:
 
-- java.lang riunisce classi fondamentali del linguaggio (String, Math, ...)
-- java.util riunisce classi di frequente utilizzo (Scanner, Random, Timer, ...)
-- java.awt e java.swing riuniscono classi per costruire interfacce grafiche
+- *java.lang* riunisce classi fondamentali del linguaggio (String, Math, ...)
+- *java.util* riunisce classi di frequente utilizzo (Scanner, Random, Timer, ...)
+- *java.awt* e java.swing riuniscono classi per costruire interfacce grafiche
 
 I packages sono utili per fare ordine e dividere le classi che fanno parte di una stessa categoria.
 
 I packages necessari devono essere listati all'inizio del file e i vari file java devono essere salvati in diverse directori che corrispondono ai vari packages.
-
-\begin{wrapfigure}{R}{0.25\textwidth}
-  \begin{center}
-    \includegraphics[width=0.2\textwidth]{img/PackagesStruct.png}
-  \end{center}
-  \caption{Java packages structure example.}
-\end{wrapfigure}
 
 Se non si specifica nessun package, la classe farà parte del package default corrispondente alla directory principale.
 
@@ -397,6 +427,7 @@ Alla creazione di un oggetto di una sottoclasse, viene prima creata un’istanza
 **Super** é una direttiva che fa riferimento all’oggetto stesso (come this) ma che consente di utilizzare i costruttori e i metodi della superclasse.
 
 > this(...) richiama un costruttore della sottoclasse.
+
 > super(...) richiama un costruttore della superclasse.
 
 Super gode delle stesse proprietá di this; se omessa la chiamata super(...), viene chiamata automaticamente dal costruttore senza parametri della superclasse (ovvero nel caso di costruttore di default).
@@ -407,4 +438,63 @@ In caso di **overriding**, ovvero quando ci sono piú metodi con lo stesso nome 
 Se la firma é diversa allora avremo **overloading** come se fecessero parte della stessa classe.
 Ció permette di ridefinire i metodi che differiscono.
 
-: **Late binding** o **binding dinamico:** é un meccanismo di collegamento "ritardato" della chiamata di un metodo con la classe corrispondente.
+**Late binding** o **binding dinamico:** é un meccanismo di collegamento "ritardato" della chiamata di un metodo con la classe corrispondente.
+Solo durante l’esecuzione, la chiamata al metodo viene collegata alla (sotto)classe giusta.
+
+Un’oggetto di una sottoclasse puó essere usato ovunque sia richiesto un oggetto della superclasse; esso puó essere passato ad un metodo, restituito ad un metodo e assegnato a una variabile.
+
+~~al momento della creazione (17 - p.20)~~ Ogni oggetto in Java ha un **tipo apparente** (é quello specificato come tipo della variabile corrispondente) e un **tipo effettivo** (é quello con cui si é costrito l’oggetto).
+Il compilatore di basa solo sult tipo apparente, in quanto il tipo effettivo puó variare durante l’esecuzione.
+
+A tempo di esecuzione la JVM (interprete) usa il tipo effettivo per controllare il tipo dell’oggetto e per chiamare i metodi della classe corrispondente.
+
+In qualsiasi momento possiamo forzare il compilatore a considerare una variabile come se fosse un oggetto di una sottoclasse, tramite un **type cast**; ovviamente le istanze devono essere in una relazione supertipo-sottotipo ed, in caso di incompatibilitá, il programma verrá arrestato.
+
+```java
+Persona p = new Studente ( " Guido Guidi " ," Via Roma 12 " );
+int m = (( Studente ) p ). getMatricola ();                             // forza il compilatore
+Studente s = ( Studente ) p ;                                           // forza il compilatore
+```
+
+**instanceof:** é un predicato che verifica il tipo effettivo di un oggetto, la quale restituisce una espressione booleana *true* se l’oggetto ha tipo effettico corrispondente al tipo effettivo della classe comparata.
+
+```java
+p instanceof Student
+```
+
+# Gerarchia di classi
+
+L’ereditarietá e transitiva e singola (ogni classe puó estendere una sola altra classe; ereditarietá cicliche sono vietate).
+
+La classe **Object** é la classe fondamentale dalla quale discendono tutte le altre classi[^1] e fornisce a tutte classi alcuni metodi fondamentali [^2].
+
+[^1]: per transitivitá
+
+[^2]: come *toString()* e *equals()*
+
+# Classi astratte
+
+Una classe che contiene almeno un metodo astratto é una **classe astratta** e un **metodo astratto** é un metodo che prevede solo una intestatione, ma che non é implementato.
+
+```java
+public abstract class <ClassName> {
+    ...
+    // intestazione del metodo
+    public abstract <type> <MethodName>();          // Metodo astratto
+}
+```
+Una classe astratta non puó creare oggetti, puó solo essere estesa da sottoclassi che ne definisce i metodi astratti, tramite overriding.
+Puó prevedere costruttori che saranno richiamati dalle sottoclassi tramite super().
+
+# Interfacce
+
+Sono classi che esasperano il principio di classi astratte, ovvero sono classi che sono formate solo da metodi astratti che peró non utilizzano il modificatore *abstract* e utilizzano la parola chiave **interface al posto di classi**; una classe che implementa i metodi dell’interfaccia deve usare la parola **implements** invece di *extend*.
+
+Il vantaggio é che una classe puó estendere una sola classe (astratta o meno), mentre **una classe puó implementare tante interfacce**.
+
+```java
+public class Salame extends Affettato implements ProdottoPesabile , Prodotto Prezzato {
+    ...
+}
+```
+

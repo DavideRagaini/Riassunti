@@ -497,4 +497,170 @@ public class Salame extends Affettato implements ProdottoPesabile , Prodotto Pre
     ...
 }
 ```
+# Situazioni anomale a run-time
+
+Java é un linguaggio fortemente tipato, cioé prevede l’utilizzo dei tipi che consente di individuare molti errori al momento della compilazione.
+
+- Tentativi di accedere a posizioni di un array che sono fuori dai limiti (indice negativo o maggiore della dimensione)
+- Errori aritmetici (esempio: divisione per zero)
+- Errori di formato: si chiede all’utente un intero e l’utente inserisce una stringa
+
+# Gestione delle eccezioni
+
+Ogni volta che la JVM si trova in situazioni anomale:
+    1. il programma viene sospeso.
+    2. viene creato un oggetto classe corrispondente all’anomalia che si é verificata.
+    3. viene passato il controllo a un gestore di eccezioni (implementato dal programmatore). Se non sono previste gestore delle eccezioni, il programma si interrompe e viene stampato il messaggio di errore.
+
+# Costrutto try-catch
+
+Consente di monitorare una porzione di codice (all’interno di un metodo) e specificare cosa fare in caso di anomalia nella porzione di programma monitorata.
+
+```java
+// ... comandi non monitorati ....
+try {
+// ... comandi monitorati ....
+}
+catch ( Exception e1 ) {
+// ... comandi da eseguire in caso di eccezione
+
+...
+
+catch ( Exception en ) {
+// ... comandi da eseguire in caso di eccezione
+}
+```
+La variabile *e* é un oggetto che puó contenere informazioni utili sull’errore.
+
+# Gerarchia delle eccezioni
+La classe **Exception** descrive una eccezione generica; situazioni anomale piú specifiche sono descritte da sottoclassi di *Exception*.
+
+\begin{figure}{}
+  \begin{center}
+    \includegraphics[width=\textwidth]{img/exception.png}
+  \end{center}
+  \caption{Java Exception class arguments.}
+\end{figure}
+
+# Gestire eccezioni
+
+I vari gestori (catch) vengono controllati in sequenza.
+Viene eseguito solo il primo *catch* che prevede un tipo di eccezione che é supertipo dell’eccezione che si é verificata.
+
+# Eccezioni checked e unchecked
+
+- **Checked:** il compilatore richiede che ci sia implementato un gestore
+- **Unchecked:** il gestore non é obbligatorio.
+
+Per essere *unchecked* un’eccezione deve essere una sottoclasse di RuntimeException, altrimenti é *checked*.
+
+Esempi tipici di eccezioni checked:
+- le eccezioni che descrivono errori di input/output (lettura o scrittura su file, comunicazione via rete, ecc...)
+- le eccezioni definite dal programmatore
+
+# Lanciare eccezioni
+Il meccanismo delle eccezioni puó anche essere usato per segnalare situazioni di errore.
+
+Il comando **throw** consente di lanciare un’eccezione quando si vuole.
+Si puó usare la classe Exception, una sua sottoclasse giá definita, o una sua sottoclasse definita dal programmatore stesso.
+*throw* si aspetta di essere seguito da un oggetto, che solitamente é costruito al momento (tramite new).
+Il costruttore di una eccezione prende come parametro (opzionale) una stringa di descrizione.
+
+```java
+throw new Exception("operazione non consentita");
+throw new AritmeticException();
+throw new EccezionePersonalizzata();
+```
+Il comando *throw* puó essere utilizzato direttamente dentro il *try-catch*, anche se é piú sensato utilizzarlo dentro i metodi; in questo caso permette di interrompere il metodo in caso di situazioni anomale.
+
+Un metodo che contiene dei comandi throw deve elencare le eccezioni che possono essere sollevate.
+L’elenco deve essere fatto nell’intestazione, usando la parola chiave *throws*
+```java
+public void preleva ( int somma )
+throws IOException , I l l e g a l P a r a m e t e r E x c e p t i o n { ... }
+```
+**Attenzione alla s finale!**
+throws si usa nell’intestazione del metodo.
+throw si usa all’interno (nel punto in cui si verifica l’errore).
+
+```java
+public class Rettangolo {
+
+    private base ;
+    private altezza ;
+
+    // ... altri metodi e costruttori
+
+public void setBase ( int x ) throws EccezioneBaseNegativa {
+    if (x <0) throw new EccezioneBaseNegativa()
+    else base = x ;
+    }
+}
+
+public class EccezioneBaseNegativa extends Exception {
+
+    EccezioneBaseNegativa() {
+        super ();
+    }
+
+    EccezioneBaseNegativa( String msg ) {
+        super ( msg );
+    }
+}
+```
+
+# Vettori
+
+Sono strutture dati dinamiche simili agli array ma che possono variare la dimensione a runtime.
+Esistono con queste caratteristiche gli **ArrayList** e i **Vector**.
+
+Per creare un vettore bisogna creare un oggetto di classe *Vector*, inizialmente vuota.
+```java
+Vector < String > v = new Vector < String >(); // vettore di stringhe
+```
+Gli elementi possono essere scritti con i metodi **set** e **get** e **add**[^3].
+
+[^3]: hanno una marea di metodi di manipolazione.
+
+Nelle parentesi angolari, il metodo *Vector* si aspetta un tipo classe:
+gna usare le classi involucro
+
+- Integer per int
+- Double per double
+- Long per long
+- Character per char
+- Boolean per boolean
+
+Tutti i metodi come *toString()* e *equals()* che discendono dalla classe *Object* vengono ridefiniti tramite *overriding* per poter lavorare su classe *Vector*.
+
+# Altre strutture dati native
+
+- **HashSet:** Descrive insiemi di elementi senza duplicati e senza un ordine predefinito
+- **HashMap:** Descrive dizionari, ossia associazioni di chiavi-valori
+- **Stack:** Descrive pile di valori
+- **Alberi**
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

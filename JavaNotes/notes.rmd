@@ -373,3 +373,38 @@ I packages possono essere raggruppati formando una struttura gerarchica.
 Si utilizzano i punti per navigare nella struttura del file system come se fosse '/' in bash.
 
 I Packages sono sottoposti ai modificatori di visibilità.
+
+# Ereditarietá
+
+La OOP si basa sull’astrarre concetti che hanno caratteristiche comuni tra di loro.
+Esistono oggetti che hanno alcune variabili e alcuni metodi in comune ed altri no, perché descrivono concetti correlati ma separati.
+Si introduce cosí il concetto di ereditarietá, ovvero poter descrivere oggetti come facenti parte di piú classi e come tali, poter utilizzare i metodi.
+
+Per definire una classe come estensione di un’altra si utilizza la primitiva **extends**.
+
+```java
+public class Student extends Persona {
+    ...
+}
+```
+
+La classe che viene estesa é detta **superclasse**, essa infatti sará raffinata in concetti piú specifici da altre classi.
+La classe che estende é detta **sottoclasse**, essa é un raffinamento del concetto della superclasse.
+Nell’esempio, la classe persona é detta superclasse, mentre la classe studente é detta sottoclasse.
+
+Alla creazione di un oggetto di una sottoclasse, viene prima creata un’istanza dell’oggetto superclasse (tramite il rispettivo costruttore), vengono aggiunte le variabili della sottoclasse all’istanza appena creata e viene chiamato il costruttore della/e sottoclasse/i che inizializza.
+
+**Super** é una direttiva che fa riferimento all’oggetto stesso (come this) ma che consente di utilizzare i costruttori e i metodi della superclasse.
+
+> this(...) richiama un costruttore della sottoclasse.
+> super(...) richiama un costruttore della superclasse.
+
+Super gode delle stesse proprietá di this; se omessa la chiamata super(...), viene chiamata automaticamente dal costruttore senza parametri della superclasse (ovvero nel caso di costruttore di default).
+
+Si utilizza *protected* per estendere la visibiliá a tutte le sottoclassi, anche di altri packages, mentre se si omette il modificatore, la visibilitá sará limita alle sole classi del package di appartenenza della superclasse.
+
+In caso di **overriding**, ovvero quando ci sono piú metodi con lo stesso nome appartenenti a sottoclasse e superclasse e con stessa firma, la sottoclasse ridefinisce (sostituendo) il metodo della superclasse.
+Se la firma é diversa allora avremo **overloading** come se fecessero parte della stessa classe.
+Ció permette di ridefinire i metodi che differiscono.
+
+: **Late binding** o **binding dinamico:** é un meccanismo di collegamento "ritardato" della chiamata di un metodo con la classe corrispondente.

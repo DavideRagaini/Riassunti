@@ -11,6 +11,10 @@ header-includes: \usepackage{graphicx}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+# JavScript
+
+E' un linguaggio
+
 # toString()
 
 Restituisce una rappresentazione testuale (stringa) che descrive l’oggetto; utile per stampare.

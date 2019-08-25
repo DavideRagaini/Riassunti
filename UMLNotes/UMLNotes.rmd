@@ -2,6 +2,115 @@
 title: UML Notes
 author:
 output: pdf_document
+header-includes: \usepackage{graphicx}
+                 \usepackage{subcapitaion}
 ---
+
+# Paradigmi OOP
+
+1. **Abstraction:** usare le classi per astrarre la natura delle caratteristiche di un oggetto, eche é un'istanza della propria classe di appartenenza.
+
+2. **Encapsulation:** Nascondere i dettagli del funzionamento di un oggetto; gli oggetti hanno accesso solo ai dati che hanno bisogno.
+
+3. **Inheritance:** classi possono specializzare altre classi ereditando da esse e implementando solo la porzione di comportamento che differisce.
+
+4. **Polynorohism:** invocare comportamento diverso in reazione allo stesso messaggio, a seconda di quell'oggetto che lo riceve.
+
+# Diagrammie e viste
+
+Un diagramma è la rappresentazione grafica di un modello e fornisce una vista di un sistema (o una sua parte) per metterne in risalto le sue proprietà.
+
+Viste:
+
+1. **Logical:** mette in risalto la scomposizione logica del sistema tramite classi, oggetti e loro relazioni.
+
+2. **Development:** mostra l'organizzazione del sistema in blocchi strutturali (packages, sottosistemi, librerie, ...).
+
+3. **Process:** mostra i processi (o thread) del sistema in funzione, e le loro interazioni.
+
+4. **Physical:** mostra come il sistema viene installato se eseguito fisicamente.
+
+5. **Use case:** spiega il funzionamento desiderato del sistema.
+
+UML fornisce i diagrammi divisi in due categorie:
+
+- **Structure diagrams:** come è fatto il sistema; fornisce le vieste *Logical*, *Development* e *Physical*.
+
+- **Behaviot diagrams:** come funziona il sistema; fornisce le viste *Process* e *Use case*.
+
+| Structure | Behavior |
+| --- | --- |
+| Class diagram | Use Case diagram |
+| Object diagram | Activity diagram |
+| Package diagram | State Machine diagram|
+| Composite Structure diagram | Sequence diagram |
+| Component diagram | Communication diagram |
+| Deployment diagram | Interaction Overview diagram |
+|       | Timing diagram |
+
+# Primitive di UML
+
+Contiene tre tipi di elementi le cui sottoclassi possono apparire nei diagrammi:
+
+- **Classifier:** é un insieme di **things**.
+- **Event;** é un insieme di possibili avvenimenti (*occurrences*).
+- **Behaviour:** è un insieme di esecuzioni (*executions*).
+
+# Entità strutturali
+
+\begin{figure}
+    \centering
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[width=\textwidth]{img/Classe.png}
+        \caption{Esempio di classe.}
+        \label{fig:Classe}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[width=\textwidth]{img/Active.png}
+        \caption{Esempio di Active Class.}
+        \label{fig:Active}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[width=\textwidth]{img/Usecase.png}
+        \caption{Esempio di Use Case.}
+        \label{fig:Use}
+    \end{subfigure}
+
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[width=\textwidth]{img/collaboration.png}
+        \caption{Esempio di Collaboration.}
+        \label{fig:Collaboration}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[width=\textwidth]{img/interface.png}
+        \caption{Esempio di Interface.}
+        \label{fig:Interface}
+    \end{subfigure}
+
+    \caption{Entità strutturali.}
+    %\label{fig:animals}
+\end{figure}
+
+**Class:** Un classificatore che raduna tutti gli oggetti con gli stessi attributi, operazioni, relazioni e semantica \ref{fig:Classe}.
+
+**Active class:** Una classe con un comportamento concorrente a quello di altri elementi (processo/thread associato) \ref{fig:Active}.
+
+**Use case:** Un classificatore contenente offerte di comportamento che producono un risultato osservabile \ref{fig:Use}.
+
+**Collaboration:** Una collezione di ruoli che formano un comportamento cooperativo: definisce un'intestazione e può realizzare un'operazione o un caso d'uso \ref{fig:Collaboration}.
+
+**Interface:** Una collezione di operazioni che possono essere richieste oppure offerte da altri elementi \ref{fig:Interface}.
+
+**Component:** Una parte modulare di un sistema che fornisce e richiede interfacce ed è sostituibile nel suo ambiente.
+
+**Node:** Una risorsa computazionale sulla quale viene effettuato il deployment degli artefatti del sistema.
+
+# aggiungere immagini
+
+
+
+
+
+
 
 

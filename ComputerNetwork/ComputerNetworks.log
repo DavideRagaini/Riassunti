@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Arch Linux) (preloaded format=pdflatex 2019.8.21)  22 AUG 2019 10:03
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Arch Linux) (preloaded format=pdflatex 2019.8.21)  25 AUG 2019 11:21
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -38,44 +38,182 @@ Package: verbatim 2014/10/28 v1.5q LaTeX2e package for verbatim enhancements
 )) (./ComputerNetworks.aux)
 \openout1 = `ComputerNetworks.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 10.
+LaTeX Font Info:    ... okay on input line 10.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 10.
+LaTeX Font Info:    ... okay on input line 10.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 10.
+LaTeX Font Info:    ... okay on input line 10.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 10.
+LaTeX Font Info:    ... okay on input line 10.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 10.
+LaTeX Font Info:    ... okay on input line 10.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 10.
+LaTeX Font Info:    ... okay on input line 10.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 11.
+(Font)              <12> on input line 12.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 11.
+(Font)              <8> on input line 12.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 11.
+(Font)              <6> on input line 12.
 
-(./sections/Cap2Sec6.tex) [1
+(./sections/Cap2Sec6.tex
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./ComputerNetworks.aux) )
- 
+! LaTeX Error: Can be used only in preamble.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.3 \usepackage
+               {hyperref}
+? 
+! Undefined control sequence.
+l.4 \hypersetup
+               {
+? 
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 23.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 23.
+[1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+! Undefined control sequence.
+<argument> ...ggiori informazioni si guardi \href 
+                                                  {https://en.wikipedia.org/...
+l.60 ...rg/wiki/Voice_frequency}{Voice Frequency}}
+                                                   di capacità, includendo ...
+
+? 
+! Missing $ inserted.
+<inserted text> 
+                $
+l.60 ...rg/wiki/Voice_frequency}{Voice Frequency}}
+                                                   di capacità, includendo ...
+
+? 
+! Extra }, or forgotten $.
+<argument> ....wikipedia.org/wiki/Voice_frequency}
+                                                  {Voice Frequency}\@finalst...
+l.60 ...rg/wiki/Voice_frequency}{Voice Frequency}}
+                                                   di capacità, includendo ...
+
+? 
+! Extra }, or forgotten $.
+\@footnotetext ...rut \strutbox }\color@endgroup }
+                                                  
+l.60 ...rg/wiki/Voice_frequency}{Voice Frequency}}
+                                                   di capacità, includendo ...
+
+? 
+
+LaTeX Warning: Command \` invalid in math mode on input line 60.
+
+! Please use \mathaccent for accents in math mode.
+\add@accent ...@spacefactor \spacefactor }\accent 
+                                                  #1 #2\egroup \spacefactor ...
+l.60 ..._frequency}{Voice Frequency}} di capacità
+                                                  , includendo le guard bands.
+? 
+! You can't use `\spacefactor' in math mode.
+\add@accent ...}\accent #1 #2\egroup \spacefactor 
+                                                  \accent@spacefactor 
+l.60 ..._frequency}{Voice Frequency}} di capacità
+                                                  , includendo le guard bands.
+? 
+
+LaTeX Warning: Command \' invalid in math mode on input line 62.
+
+! Please use \mathaccent for accents in math mode.
+\add@accent ...@spacefactor \spacefactor }\accent 
+                                                  #1 #2\egroup \spacefactor ...
+l.62 \'E
+         stato scelto, come standard,  il numero di 8 bit al secondo per cam...
+
+? 
+! You can't use `\spacefactor' in math mode.
+\add@accent ...}\accent #1 #2\egroup \spacefactor 
+                                                  \accent@spacefactor 
+l.62 \'E
+         stato scelto, come standard,  il numero di 8 bit al secondo per cam...
+
+? 
+
+LaTeX Warning: Command \` invalid in math mode on input line 62.
+
+! Please use \mathaccent for accents in math mode.
+\add@accent ...@spacefactor \spacefactor }\accent 
+                                                  #1 #2\egroup \spacefactor ...
+l.62 ... di cui uno per ragioni di controllo; ciò
+                                                   permette il trasferimento...
+
+? 
+! You can't use `\spacefactor' in math mode.
+\add@accent ...}\accent #1 #2\egroup \spacefactor 
+                                                  \accent@spacefactor 
+l.62 ... di cui uno per ragioni di controllo; ciò
+                                                   permette il trasferimento...
+
+? 
+! Missing $ inserted.
+<inserted text> 
+                $
+l.63 
+     
+? 
+Missing character: There is no � in font cmex10!
+Missing character: There is no � in font cmex10!
+Missing character: There is no � in font cmex10!
+
+Overfull \hbox (1163.01605pt too wide) in paragraph at lines 60--63
+[][]\OT1/cmr/m/n/8 per mag-giori in-for-mazioni si guardi https://en.wikipedia.
+org/wiki/Voice$[]\OML/cmm/m/it/8 requency[]|dicapacit[]; includendoleguardbands
+:Perpoterricostruireilsegnaletrasmessoattraversolalinea; sononecessari\OT1/cmr/
+m/n/8 8000\OML/cmm/m/it/8 campionialsecondo; perquestadatafrequenza[]:[]statosc
+elto; comestandard; ilnumerodi\OT1/cmr/m/n/8 8\OML/cmm/m/it/8 bitalsecondoperca
+mpionedicuiunoperragionidicontrollo\OT1/cmr/m/n/8 ; \OML/cmm/m/it/8 ci[]permett
+eiltrasferimentodi\OT1/cmr/m/n/8 56000\OML/cmm/m/it/8 bit=sec:$ 
+ []
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.78 \end{document}
+                   
+? 
+! Missing } inserted.
+<inserted text> 
+                }
+l.78 \end{document}
+                   
+? 
+)
+No file ComputerNetworks.bbl.
+[2] (./ComputerNetworks.aux) ) 
 Here is how much of TeX's memory you used:
- 299 strings out of 492623
- 3758 string characters out of 6135669
- 62496 words of memory out of 5000000
- 4273 multiletter control sequences out of 15000+600000
- 7587 words of font info for 27 fonts, out of 8000000 for 9000
+ 314 strings out of 492623
+ 3896 string characters out of 6135669
+ 67496 words of memory out of 5000000
+ 4283 multiletter control sequences out of 15000+600000
+ 8902 words of font info for 31 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 23i,4n,18p,197b,185s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmr17.pfb>
-Output written on ComputerNetworks.pdf (1 page, 38663 bytes).
+ 27i,11n,18p,332b,292s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmbx10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pf
+b></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/share/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr1
+7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/shar
+e/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmti10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+ti8.pfb>
+Output written on ComputerNetworks.pdf (2 pages, 139703 bytes).
 PDF statistics:
- 20 PDF objects out of 1000 (max. 8388607)
- 13 compressed objects within 1 object stream
+ 59 PDF objects out of 1000 (max. 8388607)
+ 42 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

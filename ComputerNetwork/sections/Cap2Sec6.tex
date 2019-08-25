@@ -1,4 +1,11 @@
-\documentclass[../main.tex]{subfiles}
+\documentclass[../ComputerNetworks.tex]{subfiles}
+
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=true,
+  citecolor=cyan,
+  linkcolor=magenta,
+  urlcolor=blue}
 
 \begin{document}
 
@@ -11,4 +18,61 @@ Tralasciando il costo di dei cavi, il costo di un opera pubblica per far passare
 Quando Bell brevettò il telefono, era già a conoscenza dei limiti imposti dalla grande distribuzione.
 Introdusse così una gerarchia a due livelli di switching toll (uffici interurbani).
 
+\subsection{The local Loop: Modems, ADSL, and Fiber}
+
+Con "Local Loop"\footnote{Anche conosciuto come "last mile" (ultimo miglio).} si intende come è strutturato l'infrastruttura dalla cabina dell'ISP fino al DSL-Client.
+\'E la connessione fisica o circuito che connette dai public switched telephone network alle attrezzature adibite alla connessione degli usofruitori del servizio di dati.
+
+Il problema consiste che, a prescindere della bandwidth che ha a disposizione la DSLAM, la linea tra la centralina e la residenza del cliente è, nella maggior parte dei casi, la stessa linea telefonica che è limita in frequenza.
+Tecnologie come \emph{ADSL}, riutilizzano la linea telefonica già presente.
+Però la linea telefonica è stata progettata per trasmettere la voce umana per il telefono in analogico e quindi ha caratteristiche che non sono adatte alla trasmissione di dati digitali a banda elevata.
+
+Sia i modem che le \emph{ADSL} devono tener conto delle limitazioni dei vecchi impianti telefonici.
+
+Di recente si stanno adoperando misure per installare fibre ottiche adatte alla trasmissione a banda larga.
+
+\subsection{Telephone Modems}
+
+Per inviare bits in un generico canale fisico, devono essere convertiti in segnali analogici che possono essere trasmessi attraverso il canale, attraverso delle tecniche di modulazione digitale.
+A destinazione, questi segnali trasmessi saranno poi convertiti nuovamente da analogici a bits.
+
+Il dispositivo che esegue la conversione dei flussi di dati in analogico e in digitale, è chiamato \textbf{modem} che sta per "\emph{mo}dulator \emph{dem}odulator".
+
+I modem telefonici sono utilizzati per mandare bits tra due computer collegati tra di loro attraverso una linea telefonica adibita alla trasmissione della voce.
+
+La linea telefonica è limitata a trasmettere a frequenza di 3100Hz, sufficienti a trasmettere una conversazione.
+Per contestualizzare, la bandwidth dello standard Ethernete o 802.11 è quattro ordini di grandezza superiore.
+
+Per il teorema di Nyquist, perfino per una linea perfetta a 3000Hz, non è possibile trasmettere a più di 6000 baud.
+In pratica, la maggior parte dei modem, manda ad una frequnza di 2400 baud, trasmettendo bits multipli per simbolo, permettendo traffico comunicazione Full Duplex\footnote{usando frequenze differenti per direzioni differenti}.
+
+Questi modem utilizzano 0 volts per trasmettere segnale logico 0 e 1 volt per segnale logico 1, con 1 bit per simbolo.
+Un avanzamento è usare quattro simboli differenti come attraversi QPSK, cosicché si abbia 2 bit/symbol e raggiungere una frequenza di trasmissione di 4800 bps.
+
+Frequenze di trasmissione maggiori necessitano insiemi di simboli\footnote{in gergo \textbf{costellation}} più ampi; ciò però significa anche che perfino una piccola quantità di rumore di fondo nel rilevamento di ampiezza o fase può produrre errori.
+
+Prima dell'avvento delle connesioni 56k, il limite di bandwidth era di 35-kbps dovuto alla presenza di local loop alle estremità dell'infrastruttura di trasmissione, uno dalla parte degli end office (uffici di distribuzione locali dei servizi) e i Digital Subscriber.
+
+L'approccio intrapreso per le connessioni 56-kbps, consiste nel rimuovere il local loop, tipicamente quello che lega ISP e l'end office più vicino, e sostituirlo con una linea di alta qualità e bandwidth.
+
+Le linee telefoniche sono state progettate per trasmettere in analogico la voce umana
+
+Ogni canale telefonico ha 4000Hz\footnote{per maggiori informazioni si guardi \href{https://en.wikipedia.org/wiki/Voice_frequency}{Voice Frequency}} di capacità, includendo le guard bands.
+Per poter ricostruire il segnale trasmesso attraverso la linea, sono necessari 8000 campioni al secondo, per questa data frequenza\footnote{per il teorema di Nyquist}.
+\'E stato scelto, come standard,  il numero di 8 bit al secondo per campione di cui uno per ragioni di controllo; ciò permette il trasferimento di 56000 bit/sec.
+
+\subsection{Digital Subscriber Lines}
+
+Il motivo per cui i modem appena discussi erano lenti, è dovuto al limite tecnico della linea per il quale è stato ottimizzata tutto il sistema, ovvero per trasmettere la voce umana.
+
+Nel punto in cui ogni local loop termina in un end office, il cavo è collegato ad un filtro che attenua ogni frequenza sotto i 300Hz e sopra i 3400Hz\footnote{il cutoff non è netto per cui si considera 4000Hz}.
+
+Nel caso di una \emph{xDSL}\footnote{nome generico utilizzato per un generico Digital Subscriber LIne} il customer è collegato in un altro tipo di switch che non ha il filtro integrato, permettendo di utilizzare a pieno la capacità del local loop.
+Il fattore limitante rimane ora il local loop che supporta circa 1MHz.
+
+
+
+
+
+\biblio
 \end{document}

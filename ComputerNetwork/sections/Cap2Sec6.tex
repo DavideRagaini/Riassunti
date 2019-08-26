@@ -1,6 +1,8 @@
 \documentclass[../ComputerNetworks.tex]{subfiles}
 
 \usepackage{hyperref}
+\usepackage{graphicx}
+
 \hypersetup{
   colorlinks=true,
   citecolor=cyan,
@@ -11,11 +13,54 @@
 
 \subsection{Introduzione}
 
-Tralasciando il costo di dei cavi, il costo di un opera pubblica per far passare un cavo è uguale al costo di far passare più cavi.
+L’obbiettivo del \textbf{PSTN} (\textbf{Public Switched Telephone Network}) é trasmettere la voce umana per lunghe distanze in maniera riconoscibile.
+Le problematiche da affrontare sono molteplici, tra cui l’organizzazione della stesura dei cavi per offrire il servizio ad ogni casa.
+Data l’evidente impossibilitá di far passare cavi individualmente che connettono ogni cliente all’altro, é stato sviluppato un sistema in grado di ridurre il numero di cavi da installare, permettendo il servizio a tutti senza restrizioni.
+Sono stati quindi utilizzati cavi ad alta bandwidth e infrastrutture di multiplexing.
+
+Tra gli uffici della compagnia telefonica la comunicazione avviene a banda elevata (fibra ottica), mentre all’"ultimo miglio" sono usati cavi di rame appartenenti alla telefonia.
+Con il tempo questi vecchi impianti verranno sostituiti con attrezzature progettate per la trasmissione di dati.
 
 \subsection{Struttura del sistema telefonico}
 
-Quando Bell brevettò il telefono, era già a conoscenza dei limiti imposti dalla grande distribuzione.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{img/29.jpg}
+    \caption{(a) Fully interconnectrd network. (b) Centralized switch. (c) Two-level hierarchy}
+    \label{fig29}
+\end{figure}
+
+Quando Bell brevettò il telefono, questo tipo di servizio era molto richiesto ed era a carico del cliente l’installazione del cavo per permettere la comunicazione.
+Se un cliente voleva parlare con \emph{n} altri clienti allora ogni proproprietario doveva collegarsi con \emph{n} cavi ad ognuno\ref{fig29}(a).
+Maggiori sono i clienti maggiore é il numero di cavi, trasformando le cittá in un groviglio di cavi che passavano sopra ogni albero.
+
+Questo tipo di modello per connettere i clienti non era adeguato, cosí la Bell Telephone Company aprí il primo switching office.
+La compagnia collegava ogni cliente al suo uffico, al cui interno degli operatori connettono coloro il chiamante al chiamato.
+
+Ben presto, ogni cliente voleva fare chiamate a lunga distanza e ogni ufficio fu collegato ad ogni ufficio delle cittá vicine\ref{fig29}(b), riproponendo il problema indicato in \ref{fig29}(a).
+Cosí la compagnia introdusse una gerarchia a due livelli\ref{fig29}(c).
+
+Semplificando, ogni telefono é collegato direttamente all’\textbf{end office} (\textbf{local central office}) piú vicino, ad una distanza da 1 a 10 km.
+Il collegamento tra ogni cliente e l’end office é chiamato \textbf{local loop}\footnote{Nel 1890, 80\% del capitale di AT\&T era il rame costrituente i local loop d’America}.
+
+Se un cliente di un dato end office chiama una altro cliente appartenente allo stesso end office, il meccanismo di switching connette direttamente (corto circuito) i due local loop.
+
+Se un cliente chiama un altro appartenente ad un altro end office, il meccanismo é diverso.
+Ogni end office ha un numero di linee uscenti, chiamate \textbf{toll connecting trunks}, che collega agli uffici vicini, che sono chiamate \textbf{toll officies} o se sono nella stessa area \textbf{tandem officies}.
+
+Se il chiamante e il chiamato sono collegati da un toll office comune, allora la connessione é stabilita all’interno dello stesso toll office, altrimenti deve essere stabilita un connessione tra almeno due toll officies.
+I toll officies comunicano attraverso \textbf{intertoll trunks} (o \textbf{interoffice trunks}) ad banda elevata.
+Fino allo scioglimento dell’AT\&T, la connessione tra toll officies era stabilita attraverso un sistema gerarchico di instradamento, dopo di che é stato sostituito da un sistama non-gerarchico piú flessibile (figura \ref{fig:nger}).
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{img/30.jpg}
+    \caption{A typical ciucuit route for long-distance call}
+    \label{fig:nger}
+\end{figure}
+
+<++>
+
 Introdusse così una gerarchia a due livelli di switching toll (uffici interurbani).
 
 \subsection{The local Loop: Modems, ADSL, and Fiber}
@@ -69,6 +114,58 @@ Nel punto in cui ogni local loop termina in un end office, il cavo è collegato 
 
 Nel caso di una \emph{xDSL}\footnote{nome generico utilizzato per un generico Digital Subscriber LIne} il customer è collegato in un altro tipo di switch che non ha il filtro integrato, permettendo di utilizzare a pieno la capacità del local loop.
 Il fattore limitante rimane ora il local loop che supporta circa 1MHz.
+
+Peró la capacitá del local loop diminuisce rapidamente all’aumentare della distanza dall’end office ed é dipendente anche dalla qualitá delle twisted pairs e dalla dimensione del cavo.
+
+% fig33
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{img/distance.jpg}
+    \caption{Bandwidth versus distance ocer Category 4UTP for DSL.}
+\end{figure}
+
+Ció implica che se si vuole garantire un servizio a velocitá minima, si é limitati in un raggio intorno all’end office, oltre il quale il servizio si degrada e non puó fornire le caratteristiche minime che si é imposto.
+Minore é la velocitá scelta, maggiore é il raggio di copertura del servizio e maggiore é il numero di clienti coperti.
+Ma minore é la velocitá e minore é invitante il servizio per cui i clienti dovrebbero pagare.
+
+La \emph{xDSL} é stata progettata con determinati obbiettivi:
+\begin{itemize}
+    \item deve poter lavorare con l’infrastruttura corrente di Category 3 twisted pair local loops,
+    \item non deve alterare il servizio telefonico e fax giá presente,
+    \item deve essere piú veloce di 56kbps,
+    \item deve avere un costo di mensile fisso e non per minuti di utilizzo.
+\end{itemize}
+
+Lo spettro di 1.1MHz é diviso in 256 canali indipendenti a livello del local loop.
+Il canale 0 é utilizzato per il \emph{POTS} (Plain Old Telephone Service), i canali 1-5 sono inutilizzati per permettere che la voce e i dati non interferiscano tra di loro.
+Tutti i rimanenti canali sono disponibili per la trasmissione dei dati e sono ripartiti in Upstream e Downstream.
+
+Teoricamente tutti i canali potrebbero essere utilizzati in full-duplex, ma sperimentalmente il sistema garantisce velocitá molto inferiori.
+Si é optato quindi di dividere i canali per poter garantire un servizio di qualitá maggiore.
+Un rapporto di 50\% upstream e 50\% downstream é chiamato simmetrico, ma tipicamente il rapporto é sbilaciato a favore del downstream per necessitá dello stesso cliente; in questo caso di parla quindi di \emph{ADSL} dove la "A" corrisponde proprio ad "asimmetrico".
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{img/ADSLeq.jpg}
+    \caption{Typical ADSL equipment configuration. P44.}
+\end{figure}
+
+Per funzionare correttamente, la compagnia telefonica deve mandare un tecnico a installare un \textbf{NID} (\textbf{Network Interface Device}) nell’edificio del cliente.
+Questo dispositivo marca la fine della proprietá della compagnia telefonica e la proprietá del cliente.
+Vicino al NID (a volte é integrato all’interno) é presente un \textbf{splitter}, un filtro analogico che separa la banda 0-4000Hz adibita al POTS dai dati.
+Il segnale del POTS é indirizzato verso l’impianto esistente del telefono e del fax, mentre i dati vengono indirizzati al modem ADSL, che usa digital signal processing per implementare OFDM.
+Dato che la maggior parte dei modem é esterno, i computer devono essere connessi ad esso tramite un interfaccia ad alta velocitá come Ethernet, USB o 802.11(WIFI).
+
+Nell’end office, é installato un corrispondente splitter, il quale, a sua volta, filtra la voce dai dati e li incammina verso il voice switch.
+I dati superiori a 26kHz sono instadati al \textbf{DSLAM} (\textbf{Digital Subscriber Line Access Muptiplexer}), che processa il segnale in analogico e ricostruice i paccetti in digitale e li invia al ISP.
+
+La separazione tra voce e ADSL, attraverso lo stesso tipologia di cavo, é relativamente poco costosa e necessita solo l’aggiunta di splitter e DSLAM (per servizi a banda bassa come all’utente casalingo).
+Uno svantaggio di questo design, é che necessita di un NID e uno splitter per ogni cliente, il che necessita personale tecnico che vada ad installare i dispositivi casa per casa.
+
+Un alternativa é usare lo standard \textbf{G.lite} che non necessita di splitter e utilizza la linea telefonica cosí comé.
+Necessita peró di un microfiltro ad ogni telefono e non permette un velocitá simili alla tradizionale ADSL.
+
+\subsection{Fiber To The Home}
 
 
 

@@ -1,7 +1,7 @@
 ---
-title: <++>
+title: Hamming codes
 author: Davide Ragaini
 output: pdf_document
 ---
 
-<++>
+

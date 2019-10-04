@@ -1,0 +1,31 @@
+---
+title: Spring Boot
+author: Davide Ragaini
+output: pdf_document
+---
+
+# JavaBean
+
+Sono una collezione di *software compontent model* so that third party ISVs (Indipendent Software Vendor) can create and ship Java components that can composed together into applications by end users.
+
+Sono una serie di componenti che possono essere utilizzati per commporre applicazioni.
+Questi *Beans* implementano funzionalitá
+
+
+
+# Spring Boot
+
+
+
+# @Component
+
+Searches for name matching the variable under the mark.
+
+# @Autowired
+
+Searches for type matching the variable under the mark.
+
+# @
+
+
+

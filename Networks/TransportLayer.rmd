@@ -1,0 +1,7 @@
+# Ekenents of transport protocol
+
+## Addressing
+
+Le porte sono indirizzi di transport layer ai quali i processi si mettono in ascolto per richieste di connessioni. TSAP (Transport Service Access Point) é un endpoint specifico del transport layer. NSAP é un endpoint del network layer; IP sono NSAP. Ogni computer ha un solo NSAP e ad un NSAP possono corrispondere piú TSAP.
+Portmapper é un processo speciale che associa al nome del servizio un endpoint TSAP, dopo di che il servizio utente rilascia la connessione con il portmapper e stabilisce una con il servizio desiderato.
+Initial Connectin Protocol:

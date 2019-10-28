@@ -1,7 +1,36 @@
-# Ekenents of transport protocol
+# Elements of transport protocol
 
 ## Addressing
 
 Le porte sono indirizzi di transport layer ai quali i processi si mettono in ascolto per richieste di connessioni. TSAP (Transport Service Access Point) é un endpoint specifico del transport layer. NSAP é un endpoint del network layer; IP sono NSAP. Ogni computer ha un solo NSAP e ad un NSAP possono corrispondere piú TSAP.
 Portmapper é un processo speciale che associa al nome del servizio un endpoint TSAP, dopo di che il servizio utente rilascia la connessione con il portmapper e stabilisce una con il servizio desiderato.
-Initial Connectin Protocol:
+Initial Connectin Protocol: ogni macchina che fornisce servizi (poco utilizzati), utilizza un process server che agisce da proxy. Tutti i client che desiderano usufruire dei servizi di una macchina comunicano con questo process server che mette in comunicazione con i servizi. Il process server controlla e risponde di tutti gli indirizzi TSAP. Questo metodo é utilizzabile solo per server creati su richiesta.
+
+## Connection Estabilishment
+
+Un protocollo deve essere costruito per essere corretto in tutte le curcostanze; soltanto il caso comune deve essere implementato in modo efficiente per ottenere buone performance. Ma il protocollo deve affrontare tutte le evenienze senza che si rompi.
+Non si puó prevenire che i pacchetti vengano duplicati o ritardati, ma, quando succede, i pacchetti devono essere rifiutati.
+Il problema puó essere affrontato in piú modi, nessuno dei quali totalmente soddisfacente:
+1) Indirizzi usa e getta: ogni volta che é necessario un TSAP, esso viene generato. Quando un connessione viene rilasciata, l’indirizzo viene eliminato e mai piú utilizzato.
+2) Identificatori univoci per ogni connessione scelto dalla entitá che inizia e messa in ogni segmento, incluso nella richiesta di connessione. Dopo che la connessione é stata rilasciata, il transport entity aggiorna la tabella delle connessioni come obsoleta. Il problema é mantenere una tabella capace di contenere tutte le coppie identificatore-PeerTransportEntity, persente in sia lato server che client. In caso di perdita della tabella la connessione non é piú utilizzabile.
+3) Tempo massimo di vita di un pacchetto. Quest’ultimo metodo é il piú gestibile. Viene sviluppato in seguito in base alle diverse metodolofie:
+a) Prevenire che i pacchetti ciclino combinato con qualche metodo per contenere i ritardi.
+b) hop counter decrementato ogni volta che il pacchetto viene inoltrato.
+3) timestamp della creazione del pacchetto. Necessita la sincrinizzazione dei router.
+Bisogna anche assicurarsi che eventuali acknowledgment diano morti, i quali avranno tempo di vita kT, dove T é il tempo di vita del pacchetto corrispondente e k una costante arbitraria.
+Il metodo utilizzato, ad esempio in TCP, consiste nel utilizzare sequence number che non verranno riutilizzati prima di T secondi. Il periodo T e la frequenza di pacchetti al secondo determinano la lunghezza del sequence number. Puó capitare che un duplicato venga consegnato con successo entro il tempo di validitá T.
+Per quanto riguarda il problema della perdita della memoria dopo un crash, una soluzione puó essere di mantenere ad idle il transport entity per T secondi dopo un ripristino.
+
+....
+
+
+## Connection Release
+
+Asimmetrico: come nel sistema telefonico, quando uno dei due rilascia la connessione, quest’ultima é interrotta. Puó produrre perdita di dati se viene interrotta prima che l’altro finisca di inviare.
+Simmetrico: la connessione viene interrotta solo quando entrambi rilasciano. Un componenete continua a ricevere anche se ha inviato una richiesta di disconnessione.
+
+Le parti possono eseguono un massimo di N tentativi di trasmissione, e lo stesso vale in caso di ricezione di una risposta. In quest’ultimo caso, se non si ricevono piú segmenti per un tempo T prestabilito, la connessione viene rilasciata automaticamente.
+
+## Error Control and Flow Control
+
+

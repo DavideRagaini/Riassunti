@@ -21,8 +21,10 @@ Bisogna anche assicurarsi che eventuali acknowledgment diano morti, i quali avra
 Il metodo utilizzato, ad esempio in TCP, consiste nel utilizzare sequence number che non verranno riutilizzati prima di T secondi. Il periodo T e la frequenza di pacchetti al secondo determinano la lunghezza del sequence number. Puó capitare che un duplicato venga consegnato con successo entro il tempo di validitá T.
 Per quanto riguarda il problema della perdita della memoria dopo un crash, una soluzione puó essere di mantenere ad idle il transport entity per T secondi dopo un ripristino.
 
-....
+É stato proposto di utilizzare un orologio (il quale non deve essere sincoronizzato) da parte degli host. Ogni sequence number viene computato in base all’orologio e ogni nuova connessione deve aspettare che venga generato un nuovo sequence number prima di poter essere stabilita.
 
+Ogni qual volta un host riceve un segmento, chiede la conferma all’altro host. Se quest’ultimo stava effettivamente cercando di cominicare, allora risponderá con un ACK, altrimenti nega la richiesta.
+Unico problema che rende possibile attacchi poiché l’utilizzo del tempo rende piú predicibile il sequence number.
 
 ## Connection Release
 
@@ -33,4 +35,6 @@ Le parti possono eseguono un massimo di N tentativi di trasmissione, e lo stesso
 
 ## Error Control and Flow Control
 
+Error Control: si sddicura che i dari vengono consegnati con il desigderio di affidabilitá (solitamente si vuole senza errori).
+Flow Control: non saturare gli slow transmitter.
 

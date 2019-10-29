@@ -37,4 +37,18 @@ Le parti possono eseguono un massimo di N tentativi di trasmissione, e lo stesso
 
 Error Control: si sddicura che i dari vengono consegnati con il desigderio di affidabilitá (solitamente si vuole senza errori).
 Flow Control: non saturare gli slow transmitter.
+Riporto alcuni meccanismi giá incontrati nel data link layer che vengono utilizzati anche nel transport layer:
+1) un frame porta un codice error-detecting (CRC o checksum).
+2) un frame porta un sequence number per identificare se stesso ed é ritrasmesso fin quando il ricevente non risponde con ACK (ARQ = Automatic Repeat reQuest).
+3) protocollo stop-and-wait per limitare i fast senders e non saturare un ricevente.
+4) sliding windows protocol (anche per trasporto bidirezionale).
+Il trasnport layer implementa a sua volta un checksum, nonostante sia giá presente nel data likn layer poiché quest’ultimo serve per il trasporto di un singolo collegamento (protegge la trasmissione tra una linea di trasmissione). Mentre, il checksum del transport layer, é utilizzato per la protezione dei segmenti fino al destinatario (end-to-end) per l’intero network. Infatti puó capitare che i frame vengano corrotti all’interno di un router, cosicché la trasmissione non generi errori e il messaggio recapitato scorretto. Il checksum del data link layer non é necessario, ma migliora le performance in quanto evita ritrasmissioni in caso di errori.
+La grandezza delle sliding windows dipende dal tipo di linea di trasmissione, ad esempio il protocollo 802.11 (wifi) utilizza finestre piccole, poiché la perdita di messaggi é probabile e necessita di meccanismi si ACK. Altri portocolli piú affidabili (come cavo e fibre) la ritrasmissione non é contemplata nel data link layer, poiché gli errori sono poco frequenti.
+Dato che i transport protocol eutilizzano grandi finestre e gli host possono avere molte connessioni, ciascune delle quali trattata separatamente, é necessario abbastanza buffer per contenere le slinding windows. I buffer sono sia lato mittente che destinatario (per ACK e ritrasmissione). Se é disponibile abbastanza spazio nel buffer il segmento in entrata é mantenuto, altrimenti viene scartato; il mittente é pronto a ritrasmettere e c’é solo spreco di risorse, poiché continua a inoltrare fin quando non riceve un ACK. C’é quindi il problema di che dimensione devono essere gli slot dei buffer (fissa, variabile, buffer circolare o su richiesta).
 
+Per prevenire casi di deadlock, tutti i gli host dovrebbero mandare segmenti di controllo contente ACK e informazioni sul buffer.
+
+## Crash Recovery
+
+Quando un host crasha e viene ripristinato, non sa piú il punto a cui era rimasto. Gli host a cui era connesso possono essere in attesa di segmenti (la connessione si é interrotta prima che finisse la trasmissione) e viene chiamato stato S1, altrimenti S0 (non attende nessun segmento). In questo caso il client deve decidere se ritrasmettere il segmento piú recente.
+Ci sono sempre situazioni in cui il protocollo fallisce nel ripristino. Il server puó fare o ACK first o write first. Il client puó agire in quattro modi: sempre ritrasmettere, mai ritrasmettere, retransmit solo in caso di stato S0 e ritrasmettere solo in caso di stato S1. Ogni combinazione di queste strategie porta a casi indesiderati, riportati in figura. Conclusione: nessun crash e recovery di un host puó essere resto trasparente ai layer superiori, nemmeno con protocolli piú elaborati.

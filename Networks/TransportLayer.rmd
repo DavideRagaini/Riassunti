@@ -52,3 +52,57 @@ Per prevenire casi di deadlock, tutti i gli host dovrebbero mandare segmenti di 
 
 Quando un host crasha e viene ripristinato, non sa piú il punto a cui era rimasto. Gli host a cui era connesso possono essere in attesa di segmenti (la connessione si é interrotta prima che finisse la trasmissione) e viene chiamato stato S1, altrimenti S0 (non attende nessun segmento). In questo caso il client deve decidere se ritrasmettere il segmento piú recente.
 Ci sono sempre situazioni in cui il protocollo fallisce nel ripristino. Il server puó fare o ACK first o write first. Il client puó agire in quattro modi: sempre ritrasmettere, mai ritrasmettere, retransmit solo in caso di stato S0 e ritrasmettere solo in caso di stato S1. Ogni combinazione di queste strategie porta a casi indesiderati, riportati in figura. Conclusione: nessun crash e recovery di un host puó essere resto trasparente ai layer superiori, nemmeno con protocolli piú elaborati.
+
+# Congestion Control
+
+Il controllo e la prevenzione delle congestioni é compito del lavoro del network layer e transport layer. La congestione accade a livello dei router e viene rilevata a livello di network layer. L’unico modo per evitare congestioni é controllare il throughput di un host e quindi transport layer.
+
+## Desiderable Bandwidth Allocation
+
+Una buona allocazione di banda deve essere tale da saturare quella disponibile ma non incappare in congestione, non competere per con altri transport entity e adattarsi velocemente alle richieste.
+
+### Efficiency and Power
+
+Goodput = quantitá di pacchetti utili arrivati al destinatario.
+Power = load/delay
+
+### Min-Max Fairness
+Spesso ogni le reti non hanno banda riservata per ogni flusso o connessione. Molte connessioni sfrutteranno tutta la banda disponibile o concentrati insime sotto la stessa allocazione.
+Compromesso tra fairness e efficienza. Differenti connessioni avranno percorsi differenti con bande differenti.
+Quando si utilizza Max-Min fairness, la banda di ogni connessione inizia da zero e aumenta lentamente fino a quando non raggiunge il collo di bottiglia, che sia la banda massima dell’host o di un link del percorso.
+Importante é che ogni connesione non vada in starvation.
+
+### Convergence
+
+Un buon algortmo di controllo dovrebbe convergere rapidamente al suo punto ottimale e ricalcolarlo in caso di variazione del punto di ottimo.
+
+## Regulating the Sending Rate
+
+Il metodo con il quale il transport layer regola la frequenza di inoltro dipende anche dal metodo di feedback che riceve dal network. Reti diverse utilizzano feedback diversi. I feedback possono essere impliciti o espicliti. Per esplicito si intende, per esempio, se il network comunica al destinatario la velocitá precisa al quale inoltrare, oppure se comunica l’avvenuta congestione e di rallentrare ma non percisa quanto. La quantitá di incremento o decremento é data dalla legge di controllo.
+
+Un buon algoritmo utilizzato é Additive Increase Multiplicative Decrease (AIMD) che garantisce una legge di controllo appropriata, fair ed efficiente.
+
+## Wireless Issues
+
+In teoria il controllo delle congestioni dovrebbe essere indipendente dal network e dal datalink layer, ma in pratica le connessioni wireless negano questa buona pratica. Molti meccanismi di feedback utilizzano come sengale il packet loss, ma le connessioni wireless hanno di base una alto livello di packet loss ben oltre il il segnale di congestione utilizzato per il  caso wired. Cosí i normali metodi di rilevamento di congestione, utilizzati per gli altri metodi di comunicazione, limiterebbero fortemente le connessioni wireless.
+La cosa migliore sarebbe che questi metodi di rilevamento sappiano distunguere da perdita di pacchetti dovuto al metodo di trasmissione e perdita per banda insufficiente; ció non é possibile. Una soluzione puó essere mascherare la perdita di pacchetti dovuta alla trasmissione, con la ritrasmissione dei pacchetti (ad esempio 802.11 utilizza il protocollo stop-and-wait  e ritrasmettendo piú volte se é avvunuta la perdita del pacchetto).
+Internet comprende percorsi eterogenei e non c’é modo per comunicare quali link comprendono quel percorso. Inoltre una perdita di pacchetti dovrebbe causare solo un meccanismod, poiché é dovuto o a trasmission error o congestione.
+La soluzione quindi é utilizzare lo stesso meccanismo ma con timescale diversi. La ristasmissione si compie nell’ordine di microsecondi a millisecondi, mentre la perdita avviene nell’ordine di millisecondi a secondi. Ció permette ai wireless link di rilevare perdita di pacchetti e ritrasmettere prima che venga rilevata congestione.
+
+# UDP
+
+Internet utilizza principalmente due protocolli, uno connectionless (UDP) e uno connection-oriented (TCP).
+Il compito di UDP é quello di inviare pacchetti ad un process e basta, cosicché le applicazioni possano costruire i loro protocolli al di sopra di esso. Al contrario il TCP, fornisce molteplici artifici, aggiungendo affidabilitá con ritrasmissione, flow control per conto dell’applicazione.
+
+UDP sta per User Datagram Protocol e fornisce un metodo per inoltrare pacchetti incapsulati in datagrammi IP senza dover stabilire connessioni.
+L’UDP trasmette segmenti composti da un header di 8 byte seguito dal payload. Le due porte servono per identificare gli endpoint di destinazione e di mittente. Quando un segmento UDP viene consegnato, il payload viene consegnato al processo associato alla porta di destinazione. Di fatto, aggiunge soltanto le porte al pacchetto IP, senza le quali non si potrebbe sapere il processo destinatario.
+Il campo UDP Lenght comprende sia l’header UDP che il payload, per cui la lunghezza minima é 8byte fino al massimo consentito dai pacchetti IP.
+Il checksum é opzionale e verifica sia l’header, sia il payload, sia lo pseudo header IP.
+UDP non compie flow control, congestion control o ritrasmissione; tutto ció é compito del user process. Offre solo la possibilitá di multiplexare un pacchetto IP a piú user process e end-to-end error detection.
+Fornisce strumenti necessati, per alcune applicazioni, come packet flow, error control e timing.
+Un caso per cui é molto utilizzato é l’invio di piccoli pacchetti, i quali , se non arrivano, vengono timeoutati e ritramessi dal user.
+Non é necessario alcun setup o release.
+
+# TCP
+
+
